@@ -1,6 +1,5 @@
 package org.trail_01;
 
-// Import the necessary classes from the Java utility library
 import java.util.*;   // Provides utility classes for handling input, output, data structures, etc.
 import java.io.*;     // Provides classes for input and output operations
 import java.net.*;    // Provides classes for working with network-related operations
@@ -9,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         // Initialize input scanner and random number generator
         Scanner scanner = new Scanner(System.in);
-        Random random = new Random();  // Allows you to generate pseudorandom numbers.
+        Random random = new Random();  
         
         // Declare variables to store game data
         int minNumber, maxNumber, numberOfPlayers, attempts, randomNumber, minAttempts = Integer.MAX_VALUE;
@@ -30,7 +29,19 @@ public class Main {
             }
         }
 
-        // Similar input validation for the maximum number
+        // Similar validation for the maximum number
+        
+      
+        while (true) {
+            try {
+                System.out.print("Enter the max number: ");
+                maxNumber = scanner.nextInt();
+                break;
+            } catch (Exception e) {
+                scanner.nextLine(); // Consume the invalid input
+                System.out.println("Invalid input. Please enter an integer.");
+            }
+        }
 
         // Validate the range of the random number
         if (minNumber >= maxNumber) {
@@ -61,8 +72,10 @@ public class Main {
         // Loop for each player
         for (int player = 1; player <= numberOfPlayers; player++) {
             attempts = 0;
-            // Generate a new random number for each player
+
+            // Generate a random number within the specified range [minNumber, maxNumber]
             randomNumber = random.nextInt(maxNumber - minNumber + 1) + minNumber;
+
             scanner.nextLine(); // Clear the input buffer
 
             // Input the name of the current player
@@ -75,7 +88,11 @@ public class Main {
             // Guessing loop for the current player
             while (true) {
                 System.out.print("Enter your guess: ");
+
+             // Read the player's guess from the input
                 int guess = scanner.nextInt();
+
+             // Increment the attempts counter for each guess
                 attempts++;
 
                 // Check if the guess is correct
@@ -103,6 +120,8 @@ public class Main {
         }
 
         // Display the winner
+        // boolean expression that evaluates to true if the winnerName string is not empty, 
+        // and false if it is empty. 
         if (!winnerName.isEmpty()) {
             System.out.println("Congratulations, " + winnerName + "! You are the winner with the lowest number of attempts: " + minAttempts + " attempts.");
         }
